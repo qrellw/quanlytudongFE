@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Form, Input, Checkbox, Button } from 'antd';
+import { Form, Input, Checkbox, Button, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { useRouter } from 'next/navigation';
 import type { FormProps } from 'antd';
@@ -17,42 +17,56 @@ export default function LoginForm() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
+  // Hook thông báo (Popup)
+  const [messageApi, contextHolder] = message.useMessage();
+
   const onFinish: FormProps<LoginFormValues>['onFinish'] = async (values) => {
     setLoading(true);
-    
+
     try {
-      // ==========================================
-      // TODO: DEV LOGIC - PASTE CODE VÀO ĐÂY
-      // ==========================================
-      // Ví dụ:
-      // const response = await fetch('/api/auth/login', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({
-      //     username: values.username,
-      //     password: values.password,
-      //   }),
-      // });
-      // const data = await response.json();
-      // if (!response.ok) throw new Error(data.message);
-      // 
-      // if (values.remember) {
-      //   localStorage.setItem('accessToken', data.accessToken);
-      // } else {
-      //   sessionStorage.setItem('accessToken', data.accessToken);
-      // }
-      // 
-      // message.success('Đăng nhập thành công!');
-      // router.push('/dashboard');
-      // ==========================================
+      console.log('📦 Đang đăng nhập với:', values);
+
+      // =================================================================
+      // 👇 [KHU VỰC DÀNH CHO BACKEND DEV]
+      // Sau này có API thật thì xóa đoạn Mock dưới này đi và thay bằng fetch/axios
+      // =================================================================
+
+      // --- [MOCK LOGIC: KIỂM TRA TÀI KHOẢN CỨNG] ---
+      await new Promise((resolve, reject) => {
+        setTimeout(() => {
+          // QUY ĐỊNH: Tài khoản mặc định để test
+          const MOCK_USER = 'admin';
+          const MOCK_PASS = '123456';
+
+          if (values.username === MOCK_USER && values.password === MOCK_PASS) {
+            // Nếu đúng -> Trả về thành công
+            resolve({ token: 'fake_token_vip_pro', role: 'admin' });
+          } else {
+            // Nếu sai -> Trả về lỗi
+            reject(new Error('Sai tài khoản hoặc mật khẩu! '));
+          }
+        }, 1000); // Giả vờ mạng lag 1 giây
+      });
       
-      // MOCK - Xóa đoạn này khi có logic thật
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      console.log('Form values:', values);
+      // =================================================================
+      // 👆 [HẾT KHU VỰC LOGIC]
+      // =================================================================
+
+      // [THÀNH CÔNG]
+      messageApi.success('Đăng nhập thành công!');
       
-    } catch (error) {
+      // Chuyển hướng sau 1s
+      setTimeout(() => {
+         router.push('/dashboard'); 
+      }, 1000);
+
+    } catch (error: any) {
+      // [THẤT BẠI]
       console.error('Lỗi:', error);
-      // TODO: DEV LOGIC - Xử lý error (show message, log, etc.)
+      messageApi.error(error.message);
+
+      // Xóa pass để nhập lại
+      form.setFieldValue('password', '');
     } finally {
       setLoading(false);
     }
@@ -60,94 +74,90 @@ export default function LoginForm() {
 
   const handleForgotPassword = (e: React.MouseEvent) => {
     e.preventDefault();
-    
-    // ==========================================
-    // TODO: DEV LOGIC - PASTE CODE VÀO ĐÂY
-    // ==========================================
-    // Hoặc có thể dùng default navigation:
-    router.push('/forgotpass');
-    // ==========================================
+    router.push('/forgotpassword');
   };
 
   return (
-    <Form
-      form={form}
-      name="login"
-      onFinish={onFinish}
-      autoComplete="off"
-      initialValues={{ remember: true }}
-      className="w-full"
-    >
-      {/* Username */}
-      <Form.Item<LoginFormValues>
-        name="username"
-        rules={[
-          { required: true, message: 'Vui lòng nhập tên đăng nhập!' },
-          { min: 3, message: 'Tên đăng nhập phải có ít nhất 3 ký tự!' },
-        ]}
-        className="mb-10"
-      >
-        <Input
-          prefix={<UserOutlined style={{ color: '#1890ff' }} />}
-          placeholder="tendangnhap"
-          size="large"
-          className="h-[52px]"
-          disabled={loading}
-        />
-      </Form.Item>
+    <>
+      {contextHolder}
 
-      {/* Password */}
-      <Form.Item<LoginFormValues>
-        name="password"
-        rules={[
-          { required: true, message: 'Vui lòng nhập mật khẩu!' },
-          { min: 6, message: 'Mật khẩu phải có ít nhất 6 ký tự!' },
-        ]}
-        className="mb-11"
+      <Form
+        form={form}
+        name="login"
+        onFinish={onFinish}
+        autoComplete="off"
+        initialValues={{ remember: true }}
+        className="w-full"
       >
-        <Input.Password
-          prefix={<LockOutlined style={{ color: '#1890ff' }} />}
-          placeholder="******"
-          size="large"
-          className="h-[52px]"
-          disabled={loading}
-        />
-      </Form.Item>
-
-      {/* Remember & Forgot password */}
-      <div className="mb-11 flex items-center justify-between">
+        {/* Username */}
         <Form.Item<LoginFormValues>
-          name="remember"
-          valuePropName="checked"
-          className="mb-0"
+          name="username"
+          rules={[
+            { required: true, message: 'Vui lòng nhập tên đăng nhập!' },
+          ]}
+          className="mb-10"
         >
-          <Checkbox className="text-[11px]" disabled={loading}>
-            Duy trì đăng nhập
-          </Checkbox>
+          <Input
+            prefix={<UserOutlined style={{ color: '#1890ff' }} />}
+            placeholder="Username (admin)"
+            size="large"
+            className="h-[52px]"
+            disabled={loading}
+          />
         </Form.Item>
 
-        <a
-          href="../../../app/(auth)/forgotpass/page.tsx"
-          onClick={handleForgotPassword}
-          className="text-[11px] text-black transition-colors hover:text-[#1890ff]"
+        {/* Password */}
+        <Form.Item<LoginFormValues>
+          name="password"
+          rules={[
+            { required: true, message: 'Vui lòng nhập mật khẩu!' },
+          ]}
+          className="mb-11"
         >
-          Quên mật khẩu?
-        </a>
-      </div>
+          <Input.Password
+            prefix={<LockOutlined style={{ color: '#1890ff' }} />}
+            placeholder="Password (123456)"
+            size="large"
+            className="h-[52px]"
+            disabled={loading}
+          />
+        </Form.Item>
 
-      {/* Submit Button */}
-      <Form.Item className="mb-0">
-        <Button
-          type="primary"
-          htmlType="submit"
-          size="large"
-          block
-          loading={loading}
-          className="h-[40px]"
-        >
-          {loading ? 'Đang đăng nhập...' : 'Đăng nhập'}
-        </Button>
-      </Form.Item>
-    </Form>
+        {/* Remember & Forgot */}
+        <div className="mb-11 flex items-center justify-between">
+          <Form.Item<LoginFormValues>
+            name="remember"
+            valuePropName="checked"
+            noStyle
+          >
+            <Checkbox className="text-[11px]" disabled={loading}>
+              Duy trì đăng nhập
+            </Checkbox>
+          </Form.Item>
+
+          <a
+            href="/forgotpassword"
+            onClick={handleForgotPassword}
+            className="text-[13px] text-black transition-colors hover:text-[#1890ff]"
+          >
+            Quên mật khẩu?
+          </a>
+        </div>
+
+        {/* Submit Button */}
+        <Form.Item className="mb-0">
+          <Button
+            type="primary"
+            htmlType="submit"
+            size="large"
+            block
+            loading={loading}
+            className="h-[40px]"
+          >
+            {loading ? 'Đang đăng nhập...' : 'Đăng nhập'}
+          </Button>
+        </Form.Item>
+      </Form>
+    </>
   );
 }
