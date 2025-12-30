@@ -6,10 +6,10 @@ export default function Footer() {
   const ibmeUrl = 'https://lab.ibme.edu.vn/';
 
   return (
-    <footer className="absolute bottom-6 left-6 right-6 flex flex-wrap items-center justify-between gap-4 text-[11px] text-[#5f5f5f]">
+    <footer className="w-full px-6 flex flex-wrap items-center justify-between gap-4 text-[11px] text-[#5f5f5f]">
       <p>
         Copyright © 2025{' '}
-        <a 
+        <a
           href={systemUrl}
           className="transition-colors hover:text-[#1890ff] hover:underline"
         >
@@ -17,8 +17,8 @@ export default function Footer() {
         </a>
         {' '}All rights reserved.
       </p>
-      
-      <a 
+
+      <a
         href={ibmeUrl}
         target="_blank"
         rel="noopener noreferrer"

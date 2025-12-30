@@ -74,7 +74,7 @@ export default function LoginForm() {
 
   const handleForgotPassword = (e: React.MouseEvent) => {
     e.preventDefault();
-    router.push('/forgotpassword');
+    router.push('/forgot-password');
   };
 
   return (

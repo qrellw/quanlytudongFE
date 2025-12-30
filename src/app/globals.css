@@ -2,7 +2,8 @@
 
 /* Reset màu nền cho toàn trang web để đỡ chói */
 body {
-  background-color: #f5f5f5; /* Màu xám nhạt chuẩn Dashboard */
+  background-color: #f5f5f5;
+  /* Màu xám nhạt chuẩn Dashboard */
   margin: 0;
   padding: 0;
 }

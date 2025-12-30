@@ -13,13 +13,13 @@ type LoginCardProps = {
 
 export default function AuthCard({ title, children }: LoginCardProps) {
   return (
-    <div className="relative w-full max-w-[469px]">
+    <div className="relative w-full max-w-[469px] scale-[0.85] origin-center">
       {/* Card Background - Glassmorphic */}
       <div className="absolute inset-0 rounded-[20px] bg-white/68 shadow-[0px_10px_30px_0px_rgba(170,170,170,0.32)] backdrop-blur-sm" />
-      
+
       {/* Card Content */}
       <div className="relative flex flex-col items-center px-6 py-[36px]">
-        
+
         {/* --- PHẦN SỬA ĐỔI: LOGO IMAGE --- */}
         <div className="mb-[35px] relative h-[100px] w-[100px]">
           <Image

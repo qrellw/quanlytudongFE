@@ -5,7 +5,7 @@ import Image from 'next/image'; // 1. Import thằng này
 import Footer from './footer';
 
 // 2. Giả sử ảnh nền nằm ở thư mục `public/background/background.webp`
-const bgImage = '/background/background.webp'; 
+const bgImage = '/background/background.webp';
 
 type AuthLayoutProps = {
   children: React.ReactNode;
@@ -15,7 +15,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
   return (
     // Thêm 'relative' để làm mốc cho ảnh absolute bên trong
     <div className="relative flex min-h-screen items-center justify-center bg-[#f6fdff] overflow-hidden">
-      
+
       {/* Background Image Layer (Dùng Next/Image) */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -35,7 +35,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
       </div>
 
       {/* Footer */}
-      <div className="absolute bottom-6 left-0 right-0 z-10">
+      <div className="absolute bottom-3 left-0 right-0 z-10 w-full">
         <Footer />
       </div>
     </div>
