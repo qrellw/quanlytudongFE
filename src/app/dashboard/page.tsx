@@ -2,17 +2,18 @@
 
 import React from 'react';
 import { Button } from 'antd';
-import { DropboxOutlined, CheckCircleOutlined, WarningOutlined, ThunderboltFilled, DatabaseOutlined } from '@ant-design/icons';
+import { DropboxOutlined, CheckCircleOutlined, WarningOutlined, ThunderboltFilled, DatabaseOutlined, MedicineBoxOutlined } from '@ant-design/icons';
 import KPICard, { KPIItem } from '@/components/dashboard/KPICard';
 import TempChart from '@/components/dashboard/TempChart';
 import WarningList from '@/components/dashboard/WarningList';
+import { BloodBagIcon } from '@/components/icons/BloodBagIcon';
 
 // --- DATA MOCK ---
 const KPIS: KPIItem[] = [
    { title: 'TỔNG THIẾT BỊ', val: 64, unit: 'máy', icon: <DatabaseOutlined />, color: 'text-blue-600', bg: 'bg-blue-50' },
    { title: 'ĐANG HOẠT ĐỘNG', val: 60, unit: 'máy', icon: <CheckCircleOutlined />, color: 'text-green-600', bg: 'bg-green-50' },
    { title: 'CẢNH BÁO LỖI', val: 4, unit: 'vụ', icon: <WarningOutlined />, color: 'text-red-600', bg: 'bg-red-50' },
-   { title: 'TIÊU THỤ ĐIỆN', val: 128, unit: 'kWh', icon: <ThunderboltFilled />, color: 'text-yellow-600', bg: 'bg-yellow-50' },
+   { title: 'SỐ TÚI MÁU', val: 1240, unit: 'túi', icon: <BloodBagIcon style={{ fontSize: '24px' }} />, color: 'text-cyan-600', bg: 'bg-cyan-50' },
 ];
 
 export default function DashboardPage() {
@@ -42,12 +43,12 @@ export default function DashboardPage() {
          {/* 3. Main Content Grid */}
          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Left: Chart */}
-            <div className="lg:col-span-2 min-h-[400px]">
+            <div className="lg:col-span-2 h-[400px]">
                <TempChart />
             </div>
 
             {/* Right: Warnings */}
-            <div className="h-full min-h-[400px]">
+            <div className="h-[400px]">
                <WarningList />
             </div>
          </div>

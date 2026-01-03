@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { FireFilled, RightOutlined } from '@ant-design/icons';
+import { FireFilled } from '@ant-design/icons';
 import { Tag } from 'antd';
 
 export default function WarningList() {
@@ -24,23 +24,20 @@ export default function WarningList() {
 
             <div className="flex flex-col gap-3 overflow-y-auto flex-1 pr-1 custom-scrollbar">
                 {warnings.map((item, i) => (
-                    <div key={i} className="group flex items-center gap-3 p-3 rounded-xl bg-red-50/30 border border-red-50 hover:border-red-200 hover:bg-red-50 transition-all cursor-pointer">
+                    <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-red-50/30 border border-red-50">
                         <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse shrink-0"></div>
                         <div className="flex-1">
-                            <h4 className="text-sm font-bold text-gray-800 group-hover:text-red-700 transition-colors">{item.name}</h4>
+                            <h4 className="text-sm font-bold text-gray-800">{item.name}</h4>
                             <p className="text-[11px] text-gray-500 flex justify-between mt-1">
                                 <span>{item.time}</span>
                                 <span>• {item.loc}</span>
                             </p>
                         </div>
-                        <RightOutlined className="text-xs text-gray-300 group-hover:text-red-400" />
                     </div>
                 ))}
             </div>
 
-            <div className="mt-4 pt-4 border-t border-gray-50 text-center">
-                <button className="text-xs font-semibold text-blue-600 hover:underline">Xem tất cả lịch sử</button>
-            </div>
         </div>
+
     );
 }

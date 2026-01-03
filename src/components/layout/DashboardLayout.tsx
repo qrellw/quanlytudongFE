@@ -6,7 +6,7 @@ import { Layout, Button, Input, ConfigProvider, Badge, Avatar, Menu } from 'antd
 import {
     MenuUnfoldOutlined, MenuFoldOutlined, SearchOutlined,
     BellOutlined, UserOutlined, AppstoreOutlined,
-    DatabaseOutlined, WarningOutlined
+    DatabaseOutlined, WarningOutlined, DropboxOutlined
 } from '@ant-design/icons';
 import { usePathname, useRouter } from 'next/navigation';
 
@@ -15,7 +15,7 @@ const { Header, Sider, Content } = Layout;
 // --- CONFIG ---
 const COLORS = {
     primary: '#1890FF',
-    bgContent: '#F3F4F6',  // Gray-100
+    bgContent: '#FAFAFA',  // Lighter Gray (was #F3F4F6)
     bgFrame: '#FFFFFF',    // White
 };
 
@@ -100,6 +100,12 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                                     icon: <AppstoreOutlined />,
                                     label: 'Tổng quan',
                                     onClick: () => router.push('/dashboard')
+                                },
+                                {
+                                    key: '/dashboard/inventory',
+                                    icon: <DropboxOutlined />,
+                                    label: 'Quản lý Kho máu',
+                                    onClick: () => router.push('/dashboard/inventory')
                                 },
                                 {
                                     key: '/dashboard/devices',

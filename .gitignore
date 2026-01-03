@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+/AIHelper
+
+/Docs/describe.txt
+
+/Docs/ux_system_analysis.md
+
+

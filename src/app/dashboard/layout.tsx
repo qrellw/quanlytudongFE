@@ -1,6 +1,6 @@
 import DashboardLayout from '@/components/layout/DashboardLayout';
-import Metadata from 'next';
-export const metadata = {
+import type { Metadata } from 'next';
+export const metadata: Metadata = {
     title: 'Hệ thống quản lý Tủ đông',
     description: 'Dashboard giám sát và điều khiển',
 };
