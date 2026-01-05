@@ -1,12 +1,13 @@
 'use client';
 
-import React from 'react';
-import { Button } from 'antd';
+import React, { useState } from 'react';
+import { Button, message } from 'antd';
 import { DropboxOutlined, CheckCircleOutlined, WarningOutlined, ThunderboltFilled, DatabaseOutlined, MedicineBoxOutlined } from '@ant-design/icons';
 import KPICard, { KPIItem } from '@/components/dashboard/KPICard';
 import TempChart from '@/components/dashboard/TempChart';
 import WarningList from '@/components/dashboard/WarningList';
 import { BloodBagIcon } from '@/components/icons/BloodBagIcon';
+import AddDeviceModal from '@/components/dashboard/AddDeviceModal';
 
 // --- DATA MOCK ---
 const KPIS: KPIItem[] = [
@@ -17,6 +18,14 @@ const KPIS: KPIItem[] = [
 ];
 
 export default function DashboardPage() {
+   const [isModalOpen, setIsModalOpen] = useState(false);
+
+   const handleCreateDevice = (values: any) => {
+      console.log('Received values of form: ', values);
+      message.success('Đã thêm thiết bị giả lập thành công!');
+      setIsModalOpen(false);
+   };
+
    return (
       <div className="flex flex-col gap-6">
 
@@ -26,7 +35,13 @@ export default function DashboardPage() {
                <h1 className="text-2xl font-bold text-slate-800 m-0 tracking-tight">Tổng quan hệ thống</h1>
                <p className="text-gray-500 text-sm mt-1">Cập nhật lần cuối: Vừa xong</p>
             </div>
-            <Button type="primary" size="large" icon={<DropboxOutlined />} className="bg-blue-600 shadow-md shadow-blue-200 h-10 px-6 rounded-lg border-none hover:shadow-lg transition-all">
+            <Button
+               type="primary"
+               size="large"
+               icon={<DropboxOutlined />}
+               className="bg-blue-600 shadow-md shadow-blue-200 h-10 px-6 rounded-lg border-none hover:shadow-lg transition-all"
+               onClick={() => setIsModalOpen(true)}
+            >
                Thêm thiết bị
             </Button>
          </div>
@@ -52,6 +67,13 @@ export default function DashboardPage() {
                <WarningList />
             </div>
          </div>
+
+         {/* MODAL: Thêm thiết bị */}
+         <AddDeviceModal
+            open={isModalOpen}
+            onCancel={() => setIsModalOpen(false)}
+            onCreate={handleCreateDevice}
+         />
       </div>
    );
 }
